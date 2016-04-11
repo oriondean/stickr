@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import StickerCard from '../sticker-card/sticker-card';
 
-import './sticker-list.scss';
+import './sticker-card-list.scss';
 
-class StickerList extends Component {
+class StickerCardList extends Component {
     render() {
         const stickers = this.props.stickers.map(sticker => {
             return <StickerCard name={sticker.get('name')}
@@ -18,10 +18,10 @@ class StickerList extends Component {
     }
 }
 
-StickerList.propTypes = {
+StickerCardList.propTypes = {
     stickers: React.PropTypes.object.isRequired,
     increment: React.PropTypes.func.isRequired,
     decrement: React.PropTypes.func.isRequired
 };
 
-export default StickerList;
+export default StickerCardList;

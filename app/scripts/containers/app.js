@@ -6,13 +6,13 @@ import './app.scss';
 
 // Components
 import Header from '../components/header/header';
-import StickerList from '../components/sticker-list/sticker-list';
+import StickerCardList from '../components/sticker-card-list/sticker-card-list';
 
 class App extends React.Component {
     render() {
         return <div className="app">
             <Header />
-            <StickerList stickers={this.props.stickers}
+            <StickerCardList stickers={this.props.stickers}
                          increment={this.props.incrementStickerCount}
                          decrement={this.props.decrementStickerCount} />
         </div>
