@@ -1,20 +1,22 @@
 import * as ActionCreators from '../actions/index';
 import { connect } from 'react-redux';
+import FacebookLogin from 'react-facebook-login';
 import React from 'react';
 
 import './app.scss';
 
 // Components
-import Header from '../components/header/header';
-import StickerCardList from '../components/sticker-card-list/sticker-card-list';
 
 class App extends React.Component {
     render() {
+        const callback = response => console.log('response', response);
+
+        //TODO: update site url when it is hosted externally
         return <div className="app">
-            <Header />
-            <StickerCardList stickers={this.props.stickers}
-                         increment={this.props.incrementStickerCount}
-                         decrement={this.props.decrementStickerCount} />
+            <FacebookLogin
+                appId="756224587812420"
+                icon="fa-facebook"
+                callback={callback}/>
         </div>
     }
 }
