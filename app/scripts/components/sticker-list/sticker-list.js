@@ -9,13 +9,12 @@ class StickerList extends Component {
             return <StickerCard name={sticker.get('name')}
                                 count={sticker.get('count')}
                                 number={sticker.get('number')}
+                                key={sticker.get('name')}
                                 increment={this.props.increment}
                                 decrement={this.props.decrement} />
         }).toArray();
 
-        return (
-            <div className="sticker-list">{stickers}</div>
-        )
+        return <div className="sticker-list">{stickers}</div>;
     }
 }
 
