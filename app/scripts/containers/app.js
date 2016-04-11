@@ -6,17 +6,15 @@ import './app.scss';
 
 // Components
 import Header from '../components/header/header';
-import StickerCard from '../components/sticker-card/sticker-card';
+import StickerList from '../components/sticker-list/sticker-list';
 
 class App extends React.Component {
     render() {
-        const sticker = this.props.stickers.get('15');
-
         return <div className="app">
             <Header />
-            <h1>Hello World</h1>
-            <StickerCard name={sticker.get('name')} count={sticker.get('count')} number={sticker.get('number')}
-                         increment={this.props.incrementStickerCount} decrement={this.props.decrementStickerCount} />
+            <StickerList stickers={this.props.stickers}
+                         increment={this.props.incrementStickerCount}
+                         decrement={this.props.decrementStickerCount} />
         </div>
     }
 }
