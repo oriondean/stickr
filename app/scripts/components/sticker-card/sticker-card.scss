@@ -1,0 +1,36 @@
+@import '../../containers/app';
+
+.sticker-card {
+  width: 125px;
+  height: 150px;
+  border: 1px solid $colour-tone-darker;
+
+  .header {
+    height: 25px;
+
+    .button {
+      border: none;
+      height: 25px;
+      width: 20%;
+      background-color: $colour-tone;
+    }
+
+    .status {
+      display: inline-block;
+      width: 60%;
+      text-align: center;
+    }
+  }
+
+  .picture {
+    height: 100px;
+    background-color: $colour-tone-lighter;
+  }
+
+  .summary {
+    border-top: 1px solid $colour-tone-darker;
+    text-align: center;
+    line-height: 25px;
+  }
+
+}
