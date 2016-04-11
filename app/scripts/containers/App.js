@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
+import './app.scss';
+
 // Components
 import Header from '../components/header/header';
 

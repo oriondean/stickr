@@ -1,0 +1,28 @@
+$colour-primary: #607D8B;
+$colour-primary-darker: #455A64;
+$colour-primary-lighter: #CFD8DC;
+
+$colour-secondary: #9E9E9E;
+$colour-secondary-darker: #616161;
+$colour-secondary-lighter: #F5F5F5;
+
+$colour-tone: #F5F5F5;
+$colour-tone-darker: #E0E0E0;
+$colour-tone-lighter: #FAFAFA;
+
+$colour-positive: #1B5320;
+$colour-negative: #871C1C;
+
+$padding-smaller: 5px;
+$padding-small: 10px;
+$padding-medium: 15px;
+$padding-large: 20px;
+$padding-larger: 25px;
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  margin-top: 60px;
+}
