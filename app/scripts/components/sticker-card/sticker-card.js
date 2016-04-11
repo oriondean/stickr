@@ -48,7 +48,9 @@ class StickerCard extends Component {
 StickerCard.propTypes = {
     name: React.PropTypes.string.isRequired,
     count: React.PropTypes.number.isRequired,
-    number: React.PropTypes.string.isRequired
+    number: React.PropTypes.string.isRequired,
+    increment: React.PropTypes.func.isRequired,
+    decrement: React.PropTypes.func.isRequired
 };
 
 export default StickerCard;
