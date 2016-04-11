@@ -3,7 +3,11 @@ import {STICKER_ACTIONS} from '../constants/action-types';
 
 const initialState = Immutable.fromJS({
     '15': { number: '15', count: 0, name: 'Jamie Vardy' },
-    '17': { number: '17', count: 1, name: 'Wade Ronney' }
+    '17': { number: '17', count: 1, name: 'Wade Ronney' },
+    '19': { number: '19', count: 3, name: 'Puke Shaw' },
+    '21': { number: '21', count: 0, name: 'Adam Lollana' },
+    '25': { number: '23', count: 2, name: 'Nod Flonders' },
+    '27': { number: '27', count: 0, name: 'Jake Bugg' }
 });
 
 export default function reduce(state = initialState, action) {
