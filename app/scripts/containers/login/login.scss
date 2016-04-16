@@ -1,0 +1,19 @@
+@import '../../variables.scss';
+
+$login-width: 295px;
+$login-height: 235px;
+
+.login {
+  width: $login-width;
+  height: $login-height;
+  position: absolute;
+  top: calc(35% - #{$login-height / 2});
+  left: calc(50% - #{$login-width / 2});
+
+  .errorMessage {
+    background-color: lighten($colour-negative, 25%);
+    color: white;
+    margin-top: $margin-medium;
+    padding: $padding-medium;
+  }
+}
