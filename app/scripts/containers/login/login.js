@@ -30,7 +30,7 @@ class Login extends React.Component {
     onResponse(data) {
         if (data.accessToken && data.name && data.id) {
             const request = new XMLHttpRequest();
-            request.open(API.LOGIN.METHOD, API.LOGIN.ADDRESS, true);
+            request.open(API.LOGIN.method, API.LOGIN.getAddress(), true);
             request.setRequestHeader('Content-Type', 'application/json');
 
             request.onload = () => {
