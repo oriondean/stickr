@@ -16,7 +16,7 @@ class StickerCard extends Component {
                     </button>
                 </div>
                 <div className="picture">
-                    <div className="number"></div>
+                    <div className="number">{this.props.number}</div>
                 </div>
                 <div className="summary">
                     <span className="name">{this.props.name}</span>
@@ -48,7 +48,7 @@ class StickerCard extends Component {
 StickerCard.propTypes = {
     name: React.PropTypes.string.isRequired,
     count: React.PropTypes.number.isRequired,
-    number: React.PropTypes.string.isRequired,
+    number: React.PropTypes.number.isRequired,
     increment: React.PropTypes.func.isRequired,
     decrement: React.PropTypes.func.isRequired
 };
