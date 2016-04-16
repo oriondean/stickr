@@ -1,16 +1,21 @@
 @import '../../variables';
 
+$height-header: 25px;
+$height-picture: 100px;
+$height-summary: 25px;
+$height-card: $height-header + $height-picture + $height-summary;
+
 .sticker-card {
   width: 125px;
-  height: 150px;
+  height: $height-card;
   border: 1px solid $colour-tone-darker;
 
   .header {
-    height: 25px;
+    height: $height-header;
 
     .button {
       border: none;
-      height: 25px;
+      height: $height-header;
       width: 20%;
       background-color: $colour-tone;
     }
@@ -24,13 +29,24 @@
 
   .picture {
     height: 100px;
-    background-color: $colour-tone-lighter;
+    background-color: $colour-secondary;
+
+    .number {
+      color: white;
+      font-size: 50px;
+      line-height: $height-picture;
+      text-align: center;
+    }
   }
 
   .summary {
     border-top: 1px solid $colour-tone-darker;
     text-align: center;
-    line-height: 25px;
+    line-height: $height-summary;
+    padding: 0 $padding-smaller;
+    overflow: hidden;
+    text-overflow: ellipsis;;
+    white-space: nowrap;
   }
 
 }
