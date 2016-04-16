@@ -20,7 +20,7 @@ render(
     <Provider store={store}>
         <Router history={history}>
             <Route path="app" component={Login} />
-            <Route path="home" component={App} />
+            <Route path="home" components={App} />
         </Router>
     </Provider>,
     document.getElementById('root')
