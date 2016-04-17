@@ -2,21 +2,37 @@ import { push } from 'react-router-redux';
 import * as API from '../constants/api';
 import {STICKER_ACTIONS, AUTH_ACTIONS} from '../constants/action-types';
 
-export const incrementStickerCount = stickerNumber => {
+export const updateStickerCount = (setId, stickerNumber, count) => {
     return dispatch => {
-        dispatch({
-            type: STICKER_ACTIONS.INCREMENT_COUNT,
-            stickerNumber
-        });
-    };
-};
+        const request = new XMLHttpRequest();
+        request.open(API.UPDATE_STICKER.method, API.UPDATE_STICKER.getAddress(setId, stickerNumber), true);
+        request.setRequestHeader('Content-Type', 'application/json');
 
-export const decrementStickerCount = stickerNumber => {
-    return dispatch => {
-        dispatch({
-            type: STICKER_ACTIONS.DECREMENT_COUNT,
-            stickerNumber
-        });
+        request.onload = () => {
+            const response = JSON.parse(request.response);
+
+            if(response.errorCode != null || response.errorMessage != null) {
+                console.error('Failed to update sticker count');
+                dispatch({
+                    type: STICKER_ACTIONS.UPDATE_COUNT,
+                    setId,
+                    stickerNumber,
+                    count
+                });
+            } else {
+                dispatch({
+                    type: STICKER_ACTIONS.UPDATE_COUNT,
+                    setId,
+                    stickerNumber,
+                    count
+                });
+            }
+        };
+
+        // TODO: nicely handle failure to update sticker count
+        request.onerror = () => { console.error('Failed to update sticker count'); };
+
+        request.send(JSON.stringify({count: count}));
     };
 };
 
@@ -42,7 +58,6 @@ export const loginFailure = error => {
 export const getStickersBySetId = setId => {
     return dispatch => {
         const request = new XMLHttpRequest();
-        request.withCredentials = true;
         request.open(API.GET_USER_SET_ITEMS.method, API.GET_USER_SET_ITEMS.getAddress(setId), true);
         request.setRequestHeader('Content-Type', 'application/json');
 

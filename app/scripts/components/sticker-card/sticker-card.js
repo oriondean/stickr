@@ -26,12 +26,12 @@ class StickerCard extends Component {
     }
 
     onIncrementClicked() {
-        this.props.increment(this.props.number);
+        this.props.increment(this.props.setId, this.props.number, this.props.count);
     }
 
     onDecrementClicked() {
         if(this.props.count > 0) {
-            this.props.decrement(this.props.number);
+            this.props.decrement(this.props.setId, this.props.number, this.props.count);
         }
     }
 
@@ -49,6 +49,7 @@ StickerCard.propTypes = {
     name: React.PropTypes.string.isRequired,
     count: React.PropTypes.number.isRequired,
     number: React.PropTypes.number.isRequired,
+    setId: React.PropTypes.number.isRequired,
     increment: React.PropTypes.func.isRequired,
     decrement: React.PropTypes.func.isRequired
 };

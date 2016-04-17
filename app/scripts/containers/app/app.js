@@ -9,30 +9,20 @@ import './app.scss';
 
 class App extends React.Component {
     render() {
-        const stickers = this.props.stickers.get(DEFAULT_SET_ID);
-
-        const groups = [];
+        const stickers = this.props.stickerSets.get(DEFAULT_SET_ID);
+        let stickerGroupElements;
 
         if(stickers != null && !stickers.isEmpty()) {
-            let previousGrouping = stickers.first().get('item').get('grouping');
-            let previousIndex = 0;
-
-            stickers.forEach((sticker, index) => {
-                const item = sticker.get('item');
-                const grouping = item.get('grouping');
-
-                if (grouping !== previousGrouping || index === (stickers.size - 1)) {
-                    groups.push(<div className="stickerGroup" key={previousGrouping}>
-                        <h2>{previousGrouping}</h2>
-                        <StickerCardList stickers={stickers.slice(previousIndex, index)}
-                                         increment={this.props.incrementStickerCount}
-                                         decrement={this.props.decrementStickerCount}
-                        />
-                    </div>);
-
-                    previousGrouping = grouping;
-                    previousIndex = index;
-                }
+            const stickerGroups = stickers.sortBy(sticker => sticker.get('item').get('number'))
+                .groupBy(sticker => sticker.get('item').get('grouping'));
+            stickerGroupElements = stickerGroups.valueSeq().map(group => {
+                const grouping = group.first().get('item').get('grouping');
+                return <div className="stickerGroup" key={grouping}>
+                    <h2>{App.formatGroupName(grouping)}</h2>
+                    <StickerCardList stickers={group}
+                                     increment={this.props.incrementStickerCount}
+                                     decrement={this.props.decrementStickerCount} />
+                </div>
             });
         }
 
@@ -43,7 +33,7 @@ class App extends React.Component {
                     <div className="row">
                         <div className="col-lg-10">
                             <h1>My Stickers</h1>
-                            {groups}
+                            {stickerGroupElements}
                         </div>
                         <div className="col-lg-2">
                             <h1>Friends List</h1>
@@ -57,11 +47,15 @@ class App extends React.Component {
     componentWillMount() {
         this.props.getStickersBySetId(DEFAULT_SET_ID);
     }
+
+    static formatGroupName(groupName) {
+        return groupName.split(' ').map(name => name.substr(0, 1).toUpperCase() + name.substr(1)).join(' ');
+    }
 }
 
 const mapStateToProps = state => {
     return {
-        stickers: state.stickers,
+        stickerSets: state.stickers,
         isLoggedIn: state.authentication.get('isLoggedIn'),
         user: state.authentication.get('user')
     };
@@ -69,8 +63,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        incrementStickerCount: stickerNumber => dispatch(ActionCreators.incrementStickerCount(stickerNumber)),
-        decrementStickerCount: stickerNumber => dispatch(ActionCreators.decrementStickerCount(stickerNumber)),
+        incrementStickerCount: (setId, stickerNumber, count) => dispatch(ActionCreators.updateStickerCount(setId, stickerNumber, ++count)),
+        decrementStickerCount: (setId, stickerNumber, count) => dispatch(ActionCreators.updateStickerCount(setId, stickerNumber, --count)),
         getStickersBySetId: setId => dispatch(ActionCreators.getStickersBySetId(setId))
     }
 };

@@ -7,21 +7,15 @@ const initialState = Immutable.Map();
 export default function reduce(state = initialState, action) {
     switch(action.type) {
         case STICKER_ACTIONS.UPDATE_STICKERS: {
-            return state.set(String(action.setId), Immutable.fromJS(action.stickers));
-        }
-        case STICKER_ACTIONS.INCREMENT_COUNT: {
-            const sticker = state.get(action.stickerNumber);
-            return state.set(action.stickerNumber, sticker.set('count', sticker.get('count') + 1));
-        }
-        case STICKER_ACTIONS.DECREMENT_COUNT: {
-            const sticker = state.get(action.stickerNumber);
+            const stickersByNumber = action.stickers.reduce((map, sticker) => {
+                map[String(sticker.item.number)] = sticker;
+                return map;
+            }, {});
 
-            if(sticker.get('count') === 0) {
-                throw new Error('A sticker cannot have a count less than zero');
-            }
-
-            return state.set(action.stickerNumber, sticker.set('count', sticker.get('count') - 1));
+            return state.set(String(action.setId), Immutable.fromJS(stickersByNumber));
         }
+        case STICKER_ACTIONS.UPDATE_COUNT:
+            return state.get(String(action.setId)).get(action.stickerNumber).get('item').set('count', action.count);
         default:
             return state;
     }
