@@ -10,6 +10,7 @@ class StickerCardList extends Component {
             return <StickerCard name={StickerCardList.formatName(item.get('name'))}
                                 count={item.get('count') || 0}
                                 number={item.get('number')}
+                                setId={item.get('setId')}
                                 key={item.get('name')}
                                 increment={this.props.increment}
                                 decrement={this.props.decrement} />
@@ -19,12 +20,8 @@ class StickerCardList extends Component {
     }
 
     static formatName(stickerName) {
-        const names = stickerName.trim().split('/');
-
-        return names.map(name => {
-            const subNames = name.split(' ');
-
-            return subNames.map(subName => {
+        return stickerName.trim().split('/').map(name => {
+            return name.split(' ').map(subName => {
                 return subName.substr(0, 1).toUpperCase() + subName.substr(1);
             }).join(' ');
         }).join('/');
