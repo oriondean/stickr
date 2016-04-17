@@ -13,3 +13,8 @@ export const GET_USER_SET_ITEMS = {
     method: 'GET',
     getAddress: setId => ADDRESS + '/user/set/' + setId + '/items'
 };
+
+export const UPDATE_STICKER = {
+    method: 'POST',
+    getAddress: (setId, stickerNumber) => ADDRESS + '/user/set/' + setId + '/item/' + stickerNumber
+};
