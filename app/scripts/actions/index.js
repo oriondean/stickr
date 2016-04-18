@@ -13,12 +13,6 @@ export const updateStickerCount = (setId, stickerNumber, count) => {
 
             if(response.errorCode != null || response.errorMessage != null) {
                 console.error('Failed to update sticker count');
-                dispatch({
-                    type: STICKER_ACTIONS.UPDATE_COUNT,
-                    setId,
-                    stickerNumber,
-                    count
-                });
             } else {
                 dispatch({
                     type: STICKER_ACTIONS.UPDATE_COUNT,
