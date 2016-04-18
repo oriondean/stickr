@@ -15,7 +15,7 @@ export default function reduce(state = initialState, action) {
             return state.set(String(action.setId), Immutable.fromJS(stickersByNumber));
         }
         case STICKER_ACTIONS.UPDATE_COUNT:
-            return state.get(String(action.setId)).get(action.stickerNumber).get('item').set('count', action.count);
+            return state.setIn([String(action.setId), String(action.stickerNumber), 'count'], action.count);
         default:
             return state;
     }

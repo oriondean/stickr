@@ -8,7 +8,7 @@ class StickerCardList extends Component {
         const stickers = this.props.stickers.map(sticker => {
             const item = sticker.get('item');
             return <StickerCard name={StickerCardList.formatName(item.get('name'))}
-                                count={item.get('count') || 0}
+                                count={sticker.get('count') || 0}
                                 number={item.get('number')}
                                 setId={item.get('setId')}
                                 key={item.get('name')}
