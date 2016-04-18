@@ -11,10 +11,10 @@ export const LOGIN = {
 
 export const GET_USER_SET_ITEMS = {
     method: 'GET',
-    getAddress: setId => ADDRESS + '/user/set/' + setId + '/items'
+    getAddress: setId => ADDRESS + '/users/sets/' + setId + '/items'
 };
 
 export const UPDATE_STICKER = {
     method: 'POST',
-    getAddress: (setId, stickerNumber) => ADDRESS + '/user/set/' + setId + '/item/' + stickerNumber
+    getAddress: (setId, stickerNumber) => ADDRESS + '/users/sets/' + setId + '/items/' + stickerNumber
 };
