@@ -27,16 +27,13 @@ class App extends React.Component {
         }
 
         return <div className="app">
-            <Header isLoggedIn={this.props.isLoggedIn} user={this.props.user} />
+            <Header isLoggedIn={this.props.isLoggedIn} user={this.props.user} viewHome={this.props.viewHome} viewFriends={this.props.viewFriends}/>
             <div className="content">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-lg-10">
+                        <div className="col-lg-12">
                             <h1>My Stickers</h1>
                             {stickerGroupElements}
-                        </div>
-                        <div className="col-lg-2">
-                            <h1>Friends List</h1>
                         </div>
                     </div>
                 </div>
@@ -65,7 +62,9 @@ const mapDispatchToProps = dispatch => {
     return {
         incrementStickerCount: (setId, stickerNumber, count) => dispatch(ActionCreators.updateStickerCount(setId, stickerNumber, ++count)),
         decrementStickerCount: (setId, stickerNumber, count) => dispatch(ActionCreators.updateStickerCount(setId, stickerNumber, --count)),
-        getStickersBySetId: setId => dispatch(ActionCreators.getStickersBySetId(setId))
+        getStickersBySetId: setId => dispatch(ActionCreators.getStickersBySetId(setId)),
+        viewFriends: () => dispatch(ActionCreators.viewFriends()),
+        viewHome: () => dispatch(ActionCreators.viewHome())
     }
 };
 
