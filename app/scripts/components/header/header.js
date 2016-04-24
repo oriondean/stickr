@@ -20,10 +20,9 @@ class Header extends Component {
             <div className="container">
                 <div className="navbar-header">
                     <a className="navbar-brand" href="#">Stickr</a>
-                    {sessionMessage}
                 </div>
+                {sessionMessage}
             </div>
-
         </nav>
     }
 }

@@ -21,5 +21,10 @@ export const UPDATE_STICKER = {
 
 export const GET_FRIENDS = {
     method: 'GET',
-    getAddress: () => ADDRESS + '/users/friends/'
+    getAddress: () => ADDRESS + '/friends'
+};
+
+export const GET_FRIENDS_REQUESTS = {
+    method: 'GET',
+    getAddress: () => ADDRESS + '/friendrequests'
 };

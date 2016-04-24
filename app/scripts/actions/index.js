@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux';
 import * as API from '../constants/api';
-import {STICKER_ACTIONS, AUTH_ACTIONS, FRIEND_ACTIONS} from '../constants/action-types';
+import {STICKER_ACTIONS, AUTH_ACTIONS, FRIEND_ACTIONS, FRIEND_REQUEST_ACTIONS} from '../constants/action-types';
 
 export const updateStickerCount = (setId, stickerNumber, count) => {
     return dispatch => {
@@ -97,6 +97,26 @@ export const getFriends = () => {
 
         // TODO: nicely handle failure to retrieve stickers
         request.onerror = () => { console.error('Failed to retrieve friends'); };
+
+        request.send();
+    };
+};
+
+export const getFriendRequests = () => {
+    return dispatch => {
+        const request = new XMLHttpRequest();
+        request.open(API.GET_FRIENDS_REQUESTS.method, API.GET_FRIENDS_REQUESTS.getAddress(), true);
+        request.setRequestHeader('Content-Type', 'application/json');
+
+        request.onload = () => {
+            dispatch({
+                type: FRIEND_REQUEST_ACTIONS.UPDATE_FRIEND_REQUESTS,
+                friendRequests: JSON.parse(request.response).results
+            });
+        };
+
+        // TODO: nicely handle failure to retrieve stickers
+        request.onerror = () => { console.error('Failed to retrieve friend requests'); };
 
         request.send();
     };

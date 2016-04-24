@@ -8,9 +8,16 @@ import Header from '../../components/header/header';
 class Friends extends React.Component {
     render() {
         let noFriendsMessage;
+        let noFriendRequestMessage;
 
         if (this.props.friends.isEmpty()) {
-            noFriendsMessage = <h2>YOU GOT NO FRIENDS</h2>
+            noFriendsMessage = <h2>You have no friends</h2>
+        }
+
+        console.log(this.props.friendRequests.toArray());
+
+        if (this.props.friendRequests.size == 0) {
+            noFriendRequestMessage = <h2>You have no friend requests</h2>
         }
 
         return <div>
@@ -26,7 +33,10 @@ class Friends extends React.Component {
                     </div>
                     <div className="col-lg-6">
                         <h1>Friend Requestzzz</h1>
-
+                        <ul>
+                            { this.props.friendRequests.toArray().map(user => <li>{user.name}</li>) }
+                        </ul>
+                        {noFriendRequestMessage}
                     </div>
                 </div>
             </div>
@@ -35,12 +45,15 @@ class Friends extends React.Component {
 
     componentWillMount() {
         this.props.getFriends();
+        this.props.getFriendRequests();
     }
 }
 
 const mapStateToProps = state => {
+    console.log(state);
     return {
         friends: state.friends,
+        friendRequests: state.friendRequests,
         isLoggedIn: state.authentication.get('isLoggedIn'),
         user: state.authentication.get('user')
     };
@@ -48,6 +61,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        getFriendRequests: () => dispatch(ActionCreators.getFriendRequests()),
         getFriends: () => dispatch(ActionCreators.getFriends()),
         viewFriends: () => dispatch(ActionCreators.viewFriends()),
         viewHome: () => dispatch(ActionCreators.viewHome())
