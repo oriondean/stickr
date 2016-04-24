@@ -28,3 +28,8 @@ export const GET_FRIENDS_REQUESTS = {
     method: 'GET',
     getAddress: () => ADDRESS + '/friendrequests'
 };
+
+export const SEARCH_USERS_BY_NAME = {
+    method: 'GET',
+    getAddress: name => ADDRESS + '/users/search?name=' + name
+};

@@ -9,15 +9,18 @@ class Friends extends React.Component {
     render() {
         let noFriendsMessage;
         let noFriendRequestMessage;
+        let noSearchResultsMessage;
 
         if (this.props.friends.isEmpty()) {
             noFriendsMessage = <h2>You have no friends</h2>
         }
 
-        console.log(this.props.friendRequests.toArray());
-
         if (this.props.friendRequests.size == 0) {
             noFriendRequestMessage = <h2>You have no friend requests</h2>
+        }
+
+        if (this.props.userSearchResults.size == 0) {
+            noSearchResultsMessage = <h2>There are no search results</h2>;
         }
 
         return <div>
@@ -39,6 +42,13 @@ class Friends extends React.Component {
                         {noFriendRequestMessage}
                     </div>
                 </div>
+                <div>
+                    <input type="text" onChange={event => this.updateUserSearchResults(event)} />
+                    <ul>
+                        { this.props.userSearchResults.toArray().map(user => <li>{user.name}</li>) }
+                    </ul>
+                    {noSearchResultsMessage}
+                </div>
             </div>
         </div>;
     }
@@ -47,13 +57,17 @@ class Friends extends React.Component {
         this.props.getFriends();
         this.props.getFriendRequests();
     }
+
+    updateUserSearchResults(event) {
+        this.props.userSearch(event.target.value);
+    }
 }
 
 const mapStateToProps = state => {
-    console.log(state);
     return {
         friends: state.friends,
         friendRequests: state.friendRequests,
+        userSearchResults: state.userSearchResults,
         isLoggedIn: state.authentication.get('isLoggedIn'),
         user: state.authentication.get('user')
     };
@@ -63,6 +77,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getFriendRequests: () => dispatch(ActionCreators.getFriendRequests()),
         getFriends: () => dispatch(ActionCreators.getFriends()),
+        userSearch: searchTerm => dispatch(ActionCreators.searchUsersByName(searchTerm)),
         viewFriends: () => dispatch(ActionCreators.viewFriends()),
         viewHome: () => dispatch(ActionCreators.viewHome())
     };
