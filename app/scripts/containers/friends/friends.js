@@ -5,6 +5,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../../components/header/header';
 
+import './friends.scss';
+
 class Friends extends React.Component {
     render() {
         let noFriendsMessage;
@@ -25,27 +27,34 @@ class Friends extends React.Component {
 
         return <div>
             <Header isLoggedIn={this.props.isLoggedIn} user={this.props.user} viewHome={this.props.viewHome} viewFriends={this.props.viewFriends}/>
-            <div className="content">
-                <div>
+            <div className="friends content">
+                <div className="top">
                     <div className="col-lg-6">
-                        <h1>FRIENDZZZZ</h1>
+                        <h1>Friends</h1>
                         <ul>
-                            { this.props.friends.valueSeq().map(friend => <li>{friend.name}</li>) }
+                            { this.props.friends.valueSeq().map(friend => <li key={friend.id}>{friend.name}</li>) }
                         </ul>
                         {noFriendsMessage}
                     </div>
                     <div className="col-lg-6">
-                        <h1>Friend Requestzzz</h1>
+                        <h1>Friend Requests</h1>
                         <ul>
-                            { this.props.friendRequests.toArray().map(user => <li>{user.name}</li>) }
+                            { this.props.friendRequests.toArray().map(user => <li key={user.id}>{user.name}</li>) }
                         </ul>
                         {noFriendRequestMessage}
                     </div>
                 </div>
-                <div>
-                    <input type="text" onChange={event => this.updateUserSearchResults(event)} />
-                    <ul>
-                        { this.props.userSearchResults.toArray().map(user => <li>{user.name}</li>) }
+                <div className="col-lg-12 bottom">
+                    <h1>User Search</h1>
+                    <input className="searchInput" type="text" onChange={event => this.updateUserSearchResults(event)} />
+                    <ul className="searchResults">
+                        { this.props.userSearchResults.toArray().map(user => {
+                                return <li className="searchResult" key={user.id}>
+                                    <button className="sendRequest" onClick={this.props.sendFriendRequest(user.id)}>Send friend request</button>
+                                    <span className="name">{user.name}</span>
+                                </li>
+                            })
+                        }
                     </ul>
                     {noSearchResultsMessage}
                 </div>
@@ -77,6 +86,7 @@ const mapDispatchToProps = dispatch => {
     return {
         getFriendRequests: () => dispatch(ActionCreators.getFriendRequests()),
         getFriends: () => dispatch(ActionCreators.getFriends()),
+        sendFriendRequest: userId=> ActionCreators.sendFriendRequest(userId),
         userSearch: searchTerm => dispatch(ActionCreators.searchUsersByName(searchTerm)),
         viewFriends: () => dispatch(ActionCreators.viewFriends()),
         viewHome: () => dispatch(ActionCreators.viewHome())

@@ -122,7 +122,7 @@ export const getFriendRequests = () => {
     };
 };
 
-export const searchUsersByName = searchTerm=> {
+export const searchUsersByName = searchTerm => {
     return dispatch => {
         const request = new XMLHttpRequest();
         request.open(API.SEARCH_USERS_BY_NAME.method, API.SEARCH_USERS_BY_NAME.getAddress(searchTerm), true);
@@ -133,6 +133,26 @@ export const searchUsersByName = searchTerm=> {
                 type: USER_ACTIONS.UPDATE_USER_SEARCH_RESULTS,
                 users: JSON.parse(request.response).results
             });
+        };
+
+        // TODO: nicely handle failure to retrieve stickers
+        request.onerror = () => { console.error('Failed to retrieve user search results'); };
+
+        request.send();
+    };
+};
+
+export const sendFriendRequest = userId => {
+    return () => {
+        const request = new XMLHttpRequest();
+        request.open(API.SEND_FRIEND_REQUEST.method, API.SEND_FRIEND_REQUEST.getAddress(userId), true);
+        request.setRequestHeader('Content-Type', 'application/json');
+
+        request.onload = () => {
+            const response = JSON.parse(request.response);
+            if (response.errorCode) {
+                window.alert(response.errorMessage);
+            }
         };
 
         // TODO: nicely handle failure to retrieve stickers

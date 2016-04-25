@@ -33,3 +33,8 @@ export const SEARCH_USERS_BY_NAME = {
     method: 'GET',
     getAddress: name => ADDRESS + '/users/search?name=' + name
 };
+
+export const SEND_FRIEND_REQUEST = {
+    method: 'POST',
+    getAddress: userId => ADDRESS + '/friendrequests/' + userId
+};
