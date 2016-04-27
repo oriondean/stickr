@@ -161,3 +161,26 @@ export const sendFriendRequest = userId => {
         request.send();
     };
 };
+
+export const respondToFriendRequest = (isAccepted, userId) => {
+    return dispatch => {
+        const request = new XMLHttpRequest();
+        request.open(API.RESPOND_TO_FRIEND_REQUEST.method, API.RESPOND_TO_FRIEND_REQUEST.getAddress(userId), true);
+        request.setRequestHeader('Content-Type', 'application/json');
+
+        request.onload = () => {
+            const response = JSON.parse(request.response);
+            if (response.errorCode) {
+                window.alert(response.errorMessage);
+            }
+
+            dispatch(getFriends());
+            dispatch(getFriendRequests());
+        };
+
+        // TODO: nicely handle failure to retrieve stickers
+        request.onerror = () => { console.error('Failed to retrieve user search results'); };
+
+        request.send(JSON.stringify({isAccepted: isAccepted}));
+    };
+};

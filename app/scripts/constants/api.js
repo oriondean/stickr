@@ -38,3 +38,8 @@ export const SEND_FRIEND_REQUEST = {
     method: 'POST',
     getAddress: userId => ADDRESS + '/friendrequests/' + userId
 };
+
+export const RESPOND_TO_FRIEND_REQUEST = {
+    method: 'PUT',
+    getAddress: userId => ADDRESS + '/friendrequests/' + userId
+};
