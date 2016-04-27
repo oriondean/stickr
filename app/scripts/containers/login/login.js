@@ -1,5 +1,6 @@
 import * as ActionCreators from '../../actions/index';
 import * as API from '../../constants/api';
+import { APP_ID } from '../../constants/config';
 
 import { connect } from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
@@ -22,7 +23,7 @@ class Login extends React.Component {
             <Header isLoggedIn={this.props.isLoggedIn} />
             <h1>Welcome to the future of sticker trading.</h1>
             <br />
-            <FacebookLogin appId="756224587812420" icon="fa-facebook" callback={(response) => this.onResponse(response)}/>
+            <FacebookLogin appId={APP_ID} icon="fa-facebook" callback={(response) => this.onResponse(response)}/>
             {errorMessage}
         </div>;
     }

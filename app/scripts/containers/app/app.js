@@ -1,71 +1,41 @@
-import * as ActionCreators from '../../actions/index';
-import { connect } from 'react-redux';
-import { DEFAULT_SET_ID } from '../../constants/sets';
-import Header from '../../components/header/header';
 import React from 'react';
-import StickerCardList from '../../components/sticker-card-list/sticker-card-list';
+import { render } from 'react-dom';
+import configureStore from '../../store/store';
+import { Provider } from 'react-redux';
 
-import './app.scss';
+import Home from '../home/home';
+import Login from '../login/login';
+import Friends from '../friends/friends';
 
-class App extends React.Component {
+const store = configureStore();
+
+export default class App extends React.Component {
     render() {
-        const stickers = this.props.stickerSets.get(DEFAULT_SET_ID);
-        let stickerGroupElements;
-
-        if(stickers != null && !stickers.isEmpty()) {
-            const stickerGroups = stickers.sortBy(sticker => sticker.get('item').get('number'))
-                .groupBy(sticker => sticker.get('item').get('grouping'));
-            stickerGroupElements = stickerGroups.valueSeq().map(group => {
-                const grouping = group.first().get('item').get('grouping');
-                return <div className="stickerGroup" key={grouping}>
-                    <h2>{App.formatGroupName(grouping)}</h2>
-                    <StickerCardList stickers={group}
-                                     increment={this.props.incrementStickerCount}
-                                     decrement={this.props.decrementStickerCount} />
-                </div>
-            });
+        if(!this.props.isLoggedIn) {
+            window.location.hash = '';
+            return <Login />
         }
 
-        return <div className="app">
-            <Header isLoggedIn={this.props.isLoggedIn} user={this.props.user} viewHome={this.props.viewHome} viewFriends={this.props.viewFriends}/>
-            <div className="content">
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <h1>My Stickers</h1>
-                            {stickerGroupElements}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        switch (this.props.location[0])  {
+            case 'friends':
+                return <Friends />;
+            default:
+                return <Home />;
+        }
     }
 
-    componentWillMount() {
-        this.props.getStickersBySetId(DEFAULT_SET_ID);
-    }
+    static handleNewHash() {
+        const location = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
 
-    static formatGroupName(groupName) {
-        return groupName.split(' ').map(name => name.substr(0, 1).toUpperCase() + name.substr(1)).join(' ');
+        const application = <Provider store={store}>
+                <App location={location} isLoggedIn={store.getState().authentication.get('isLoggedIn')} />
+            </Provider>;
+
+        render(application, document.getElementById('root'));
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        stickerSets: state.stickers,
-        isLoggedIn: state.authentication.get('isLoggedIn'),
-        user: state.authentication.get('user')
-    };
+App.propTypes = {
+    location: React.PropTypes.array.isRequired,
+    isLoggedIn: React.PropTypes.bool.isRequired
 };
-
-const mapDispatchToProps = dispatch => {
-    return {
-        incrementStickerCount: (setId, stickerNumber, count) => dispatch(ActionCreators.updateStickerCount(setId, stickerNumber, ++count)),
-        decrementStickerCount: (setId, stickerNumber, count) => dispatch(ActionCreators.updateStickerCount(setId, stickerNumber, --count)),
-        getStickersBySetId: setId => dispatch(ActionCreators.getStickersBySetId(setId)),
-        viewFriends: () => dispatch(ActionCreators.viewFriends()),
-        viewHome: () => dispatch(ActionCreators.viewHome())
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);

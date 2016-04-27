@@ -1,4 +1,3 @@
-import { push } from 'react-router-redux';
 import * as API from '../constants/api';
 import {STICKER_ACTIONS, AUTH_ACTIONS, FRIEND_ACTIONS, FRIEND_REQUEST_ACTIONS, USER_ACTIONS} from '../constants/action-types';
 
@@ -36,19 +35,19 @@ export const loginSuccess = user => {
             type: AUTH_ACTIONS.LOGIN_SUCCESS,
             user
         });
-        dispatch(push('/home'));
+        window.location.hash = 'home';
     };
 };
 
 export const viewFriends = () => {
-    return dispatch => {
-        dispatch(push('/friends'));
+    return () => {
+        window.location.hash = 'friends';
     };
 };
 
 export const viewHome = () => {
-    return dispatch => {
-        dispatch(push('/home'));
+    return () => {
+        window.location.hash = 'home';
     };
 };
 
