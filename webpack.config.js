@@ -1,5 +1,5 @@
 var path = require('path');
-var scripts = path.resolve(__dirname, "app/scripts");
+var scripts = path.resolve(__dirname, 'app/scripts');
 
 module.exports = {
     entry: [
@@ -38,7 +38,13 @@ module.exports = {
             {
                 test: /\.css$/,
                 loaders: ['style', 'css'],
-                include: path.resolve(__dirname, "app/styles")
+                include: path.resolve(__dirname, 'app/styles')
+            },
+            {
+                test: /index.html$/,
+                loader: 'file',
+                query: { name: 'index.html' },
+                include: path.resolve(__dirname, 'app/')
             },
             {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
             {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
