@@ -1,4 +1,3 @@
-import { push } from 'react-router-redux';
 import * as API from '../constants/api';
 import {STICKER_ACTIONS, AUTH_ACTIONS} from '../constants/action-types';
 
@@ -36,7 +35,7 @@ export const loginSuccess = user => {
             type: AUTH_ACTIONS.LOGIN_SUCCESS,
             user
         });
-        dispatch(push('/home'));
+        window.location.hash = 'home';
     };
 };
 
