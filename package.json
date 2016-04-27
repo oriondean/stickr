@@ -45,7 +45,7 @@
     "webpack-dev-server": "1.14.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --output-public-path build"
+    "start": "webpack-dev-server --content-base build"
   },
   "private": true,
   "license": "MIT"

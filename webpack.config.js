@@ -1,5 +1,5 @@
 var path = require('path');
-var scripts = path.resolve(__dirname, 'app/scripts');
+var scripts = path.resolve(__dirname, 'home/scripts');
 
 module.exports = {
     entry: [
