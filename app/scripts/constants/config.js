@@ -1,0 +1,6 @@
+const SERVER_HOST = '163.172.138.50';
+const SERVER_PORT = '3000';
+const SERVER_PROTOCOL = 'http';
+
+export const SERVER_ADDRESS = SERVER_PROTOCOL + '://' + SERVER_HOST + ':' + SERVER_PORT;
+export const APP_ID = '756224587812420';

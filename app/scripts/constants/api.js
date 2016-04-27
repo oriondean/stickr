@@ -1,20 +1,16 @@
-//TODO: update site url when it is hosted externally
-const PROTOCOL = 'http';
-const HOST = '163.172.138.50';
-const PORT = '3000';
-const ADDRESS = PROTOCOL + '://' + HOST + ':' + PORT;
+import {SERVER_ADDRESS} from './config';
 
 export const LOGIN = {
     method: 'POST',
-    getAddress: () => ADDRESS + '/login'
+    getAddress: () => SERVER_ADDRESS + '/login'
 };
 
 export const GET_USER_SET_ITEMS = {
     method: 'GET',
-    getAddress: setId => ADDRESS + '/users/sets/' + setId + '/items'
+    getAddress: setId => SERVER_ADDRESS + '/users/sets/' + setId + '/items'
 };
 
 export const UPDATE_STICKER = {
     method: 'POST',
-    getAddress: (setId, stickerNumber) => ADDRESS + '/users/sets/' + setId + '/items/' + stickerNumber
+    getAddress: (setId, stickerNumber) => SERVER_ADDRESS + '/users/sets/' + setId + '/items/' + stickerNumber
 };
