@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import Home from '../home/home';
 import Login from '../login/login';
+import Friends from '../friends/friends';
 
 const store = configureStore();
 
@@ -16,6 +17,8 @@ export default class App extends React.Component {
         }
 
         switch (this.props.location[0])  {
+            case 'friends':
+                return <Friends />;
             default:
                 return <Home />;
         }
